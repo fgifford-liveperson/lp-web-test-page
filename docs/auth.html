@@ -24,10 +24,12 @@
             });
         }
     </script>
-    <script>window.lpTag = window.lpTag || {}, lpTag.site = "83559791"</script>
+    <script>window.lpTag = window.lpTag || {}, lpTag.site = location.search.slice(1)</script>
     <script>
         window.lpTag = window.lpTag || {};
-        lpTag.section = ["authenticated"];
+        if (!lpTag.section) {
+            lpTag.section = ["authenticated"];
+        }
     </script>
 
     <script>
