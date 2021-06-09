@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Showing Engagement dynamically</title>
+    <style>
+        <!--
+        .lpc_maximized-header__close-button {
+            display: inline-block !important;
+        }
+
+        .lpc_menu__banner {
+            display: none !important;
+        }
+
+        //
+        -->
+    </style>
+    <!-- BEGIN LivePerson Monitor. -->
+    <script>
+        function updateAccount() {
+            window.lpTag = window.lpTag || {};
+            location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + document.getElementById("account").value);
+        }
+    </script>
+    <script>
+        function updateSection() {
+            window.lpTag = window.lpTag || {};
+            lpTag.newPage(document.location.href, {
+                section: document.getElementById("sections").value.split(",")
+            });
+        }
+    </script>
+    <script>window.lpTag = window.lpTag || {}, lpTag.site = "83559791"</script>
+    <script
+        type="text/javascript">window.lpTag = window.lpTag || {}, 'undefined' == typeof window.lpTag._tagCount ? (window.lpTag = { wl: lpTag.wl || null, scp: lpTag.scp || null, site: lpTag.site || '', section: lpTag.section || '', tagletSection: lpTag.tagletSection || null, autoStart: lpTag.autoStart !== !1, ovr: lpTag.ovr || {}, _v: '1.10.0', _tagCount: 1, protocol: 'https:', events: { bind: function (t, e, i) { lpTag.defer(function () { lpTag.events.bind(t, e, i) }, 0) }, trigger: function (t, e, i) { lpTag.defer(function () { lpTag.events.trigger(t, e, i) }, 1) } }, defer: function (t, e) { 0 === e ? (this._defB = this._defB || [], this._defB.push(t)) : 1 === e ? (this._defT = this._defT || [], this._defT.push(t)) : (this._defL = this._defL || [], this._defL.push(t)) }, load: function (t, e, i) { var n = this; setTimeout(function () { n._load(t, e, i) }, 0) }, _load: function (t, e, i) { var n = t; t || (n = this.protocol + '//' + (this.ovr && this.ovr.domain ? this.ovr.domain : 'lptag.liveperson.net') + '/tag/tag.js?site=' + this.site); var o = document.createElement('script'); o.setAttribute('charset', e ? e : 'UTF-8'), i && o.setAttribute('id', i), o.setAttribute('src', n), document.getElementsByTagName('head').item(0).appendChild(o) }, init: function () { this._timing = this._timing || {}, this._timing.start = (new Date).getTime(); var t = this; window.attachEvent ? window.attachEvent('onload', function () { t._domReady('domReady') }) : (window.addEventListener('DOMContentLoaded', function () { t._domReady('contReady') }, !1), window.addEventListener('load', function () { t._domReady('domReady') }, !1)), 'undefined' === typeof window._lptStop && this.load() }, start: function () { this.autoStart = !0 }, _domReady: function (t) { this.isDom || (this.isDom = !0, this.events.trigger('LPT', 'DOM_READY', { t: t })), this._timing[t] = (new Date).getTime() }, vars: lpTag.vars || [], dbs: lpTag.dbs || [], ctn: lpTag.ctn || [], sdes: lpTag.sdes || [], hooks: lpTag.hooks || [], identities: lpTag.identities || [], ev: lpTag.ev || [] }, lpTag.init()) : window.lpTag._tagCount += 1;</script>
+    <!-- END LivePerson Monitor. -->
+
+    <script>
+        window.lpTag = window.lpTag || {};
+        lpTag.section = ["spanish"];
+        lpTag.sdes = lpTag.sdes || [];
+        lpTag.sdes.push(
+            {
+                "type": "personal",
+                "personal": {
+                    "language": "fr-FR"
+                }
+            }
+        );
+    </script>
+
+    <script>
+        window.lpTag = window.lpTag || {};
+        lpTag.identities = lpTag.identities || [];
+        lpTag.identities.splice(0, lpTag.identities.length);
+    </script>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <img class="w-25 p-3"
+            src="https://support.liveperson.com/wp-content/uploads/2018/03/liveperson-logo-30cm_logo-orange.png"
+            alt="LivePerson">
+        <h2>Unauthenticated page</h2>
+        <p>Press the button to return to the authenticated engagement</p>
+    </div>
+    <div id="lpButtonDiv-need-help-panel"></div>
+    <div class="container">
+        <label for="account">Enter account, then click update</label>
+        <div class="input-group mb-3">
+            <input id="account" type="text" class="form-control"></input>
+            <button id="updateAccount" class="btn btn-primary" onclick="updateAccount()">Update account value</button>
+        </div>
+        <label for="sections">Enter sections, then click update</label>
+        <div class="input-group mb-3">
+            <input id="sections" type="text" class="form-control"></input>
+            <button id="updateSection" class="btn btn-primary" onclick="updateSection()">Update section values</button>
+        </div>
+        <a class="btn btn-primary" href="auth.html">Log In</a>
+    </div>
+</body>
+
+</html>
