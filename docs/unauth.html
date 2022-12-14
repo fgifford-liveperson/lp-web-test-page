@@ -29,6 +29,13 @@
         }
     </script>
     <script>
+        function updateSde() {
+            window.lpTag = window.lpTag||{}
+            lpTag.sdes = lpTag.sdes||[];
+            lpTag.sdes.send(JSON.parse(document.getElementById('sdes').value));
+        }
+    </script>
+    <script>
         function updateSection() {
             window.lpTag = window.lpTag || {};
             lpTag.newPage(document.location.href, {
@@ -74,6 +81,10 @@
         <div class="input-group mb-3">
             <input id="sections" type="text" class="form-control"></input>
             <button id="updateSection" class="btn btn-primary" onclick="updateSection()">Update section values</button>
+        </div>
+        <div class="input-group mb-3">
+            <input id="sdes" type="text" class="form-control"></input>
+            <button id="updateSde" class="btn btn-primary" onclick="updateSde()">Update SDE values</button>
         </div>
         <a class="btn btn-primary" href="auth.html">Log In</a>
     </div>
