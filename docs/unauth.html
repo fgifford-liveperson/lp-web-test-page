@@ -27,7 +27,7 @@
         function updateAccount() {
             window.lpTag = window.lpTag || {};
             var search = location.search.slice(1).split('&').map(el=>el.startsWith('accountId') ? 'accountId=' + document.getElementById('account').value : el);
-            location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + search);
+            location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + search.join('&'));
         }
     </script>
     <script>
