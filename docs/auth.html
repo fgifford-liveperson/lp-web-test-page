@@ -12,8 +12,13 @@
     <!-- BEGIN LivePerson Monitor. -->
     <script>
         function updateAccount() {
-            window.lpTag = window.lpTag || {};
-            location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + document.getElementById("account").value);
+            // window.lpTag = window.lpTag || {};
+            // location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + document.getElementById("account").value);
+            const url = new URL(window.location.href);
+            const searchParams = new URLSearchParams(url.search);
+            searchParams.set(accountId, document.getElementById('account').value);
+            url.search = searchParams;
+            location.replace(url);
         }
     </script>
     <script>
