@@ -50,8 +50,9 @@
     </script>
     <script>
         function updateIdpParams() {
+            window.lpTag = window.lpTag || {};
             // window.lpGetAuthenticationToken = function (callback) {
-            (window.lpTag.jsContext || window)[window.lpTag.jsMethodName||'lpGetAuthenticationToken'] = function (callback) {
+            (lpTag.jsContext || window)[lpTag.jsMethodName||'lpGetAuthenticationToken'] = function (callback) {
                 return callback(
                     {
                         redirect_uri: document.getElementById('idp-redirect-uri').value,
@@ -76,8 +77,8 @@
                                         var authIdps = idps
                                             .filter(({ type }) => type === 2);
                                         var preferredIdps = authIdps.filter(({ configuration: { preferred } }) => preferred);
-                                        var { issuer, jsContext = window, jsMethodName = 'lpGetAuthenticationToken' } = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration;
-                                        lpTag.jsContext = jsContext;
+                                        var { issuer, jsContext = 'window', jsMethodName = 'lpGetAuthenticationToken' } = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration;
+                                        lpTag.jsContext = window[jsContext];
                                         lpTag.jsMethodName = jsMethodName;
                                         jsContext[jsMethodName] = function (callback) { return callback(null, new Error('Not implemented')); };
                                         document.getElementById('identities-issuer').value = issuer;
