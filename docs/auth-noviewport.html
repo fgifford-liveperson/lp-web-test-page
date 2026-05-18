@@ -79,7 +79,7 @@
                                         var { issuer, jsContext = 'window', jsMethodName = 'lpGetAuthenticationToken' } = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration;
                                         lpTag.jsContext = window[jsContext];
                                         lpTag.jsMethodName = jsMethodName;
-                                        lpTag.jsContext[jsMethodName] = function (callback) { return callback(null, new Error('Not implemented')); };
+                                        lpTag.jsContext[jsMethodName] = function (callback) { console.warn('Auth not implemented'); return callback(null, new Error('Not implemented')); };
                                         document.getElementById('identities-issuer').value = issuer;
                                         var subject = queryParams.get('sub');
                                         if (subject) {
