@@ -15,7 +15,7 @@
             window.lpTag = window.lpTag || {};
             var currentUrl = new URL(location);
             var searchParams = new URLSearchParams(location.search);
-            searchParams.set(param) = document.getElementById(elementId).value;
+            searchParams.set(param, document.getElementById(elementId).value);
             currentUrl.search = searchParams;
             location.replace(currentUrl);
         }
