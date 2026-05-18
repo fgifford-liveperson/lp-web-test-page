@@ -65,8 +65,8 @@
         (() => {
             var queryParams = new URLSearchParams(location.search)
             var subject = queryParams.get('sub');
-            if (sub) {
-                document.getElementById('identities-subject').value = sub;
+            if (subject) {
+                document.getElementById('identities-subject').value = subject;
             }
             var accountIdParam = queryParams.get('accountId');
             if (accountIdParam) {
