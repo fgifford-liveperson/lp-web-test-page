@@ -11,16 +11,16 @@
 
     <!-- BEGIN LivePerson Monitor. -->
     <script>
-        function updateAccount() {
+        function updateQueryParam(param, elementId) {
             window.lpTag = window.lpTag || {};
-            // location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + document.getElementById("account").value);
-            const url = new URL(window.location.href);
-            const searchParams = new URLSearchParams(url.search);
-            searchParams.set('accountId', document.getElementById('account').value);
-            url.search = searchParams;
-            location.replace(url);
-            lpTag.site = searchParams.get('accountId')
+            var currentUrl = new URL(location);
+            var searchParams = URLSearchParams(location.search);
+            searchParams.set(param) = document.getElementById(elementId).value;
+            currentUrl.search = searchParams;
+            location.replace(currentUrl);
         }
+        var updateAccount = updateQueryParam.bind(this, 'accountId', 'account');
+        var updateTagDomain = updateQueryParam.bind(this, 'tagDomain', 'tagDomain');
     </script>
     <script>
         function updateSection() {
@@ -60,7 +60,13 @@
             };
         }
     </script>
-    <script>window.lpTag = window.lpTag || {}, lpTag.site = location.search.slice(1)</script>
+    <script>
+        window.lpTag = window.lpTag || {};
+        var accountIdParam = (new URLSearchParams(location.search)).get('accountId');
+        if (accountIdParam) {
+            lpTag.site = accountIdParam;
+        }
+    </script>
     <script>
         window.lpTag = window.lpTag || {};
         if (!lpTag.section) {

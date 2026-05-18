@@ -24,22 +24,16 @@
     </style>
     <!-- BEGIN LivePerson Monitor. -->
     <script>
-        function updateAccount() {
+        function updateQueryParam(param, elementId) {
             window.lpTag = window.lpTag || {};
-            var searchParams = Object.fromEntries(location.search.slice(1).split('&').filter((el)=>!!el).map((kv) => kv.split('=')));
-            searchParams.accountId = document.getElementById('account').value;
-            var newParams = Object.entries(searchParams).map((kv) => kv.join('=')).join('&');
-            location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + newParams);
+            var currentUrl = new URL(location);
+            var searchParams = URLSearchParams(location.search);
+            searchParams.set(param) = document.getElementById(elementId).value;
+            currentUrl.search = searchParams;
+            location.replace(currentUrl);
         }
-    </script>
-    <script>
-        function updateTagDomain() {
-            window.lpTag = window.lpTag || {};
-            var searchParams = Object.fromEntries(location.search.slice(1).split('&').filter((el)=>!!el).map((kv) => kv.split('=')));
-            searchParams.tagDomain = document.getElementById('tagDomain').value;
-            var newParams = Object.entries(searchParams).map((kv) => kv.join('=')).join('&');
-            location.replace(location.href.slice(0, location.href.length - location.search.length) + '?' + newParams);
-        }
+        var updateAccount = updateQueryParam.bind(this, 'accountId', 'account');
+        var updateTagDomain = updateQueryParam.bind(this, 'tagDomain', 'tagDomain');
     </script>
     <script>
         function updateSde() {
@@ -58,17 +52,16 @@
     </script>
     <script>
         window.lpTag = window.lpTag || {};
-        var accountIdParam = location.search.slice(1).split('&').find((el) => el.startsWith('accountId'));
+        var accountIdParam = (new URLSearchParams(location.search)).get('accountId');
         if (accountIdParam) {
-            lpTag.site = accountIdParam.slice('accountId='.length);
+            lpTag.site = accountIdParam;
         }
     </script>
     <script>
-        var tagDomainParam = location.search.slice(1).split('&').find((el) => el.startsWith('tagDomain'));
+        var tagDomainParam = (new URLSearchParams(location.search)).get('tagDomain');
         if (tagDomainParam) {
-            var tagDomain = tagDomainParam.slice('tagDomain='.length)
             window.lpTag = window.lpTag || {};
-            lpTag.ovr = { domain: tagDomain, tagjs: tagDomain };
+            lpTag.ovr = { domain: tagDomainParam, tagjs: tagDomainParam };
         }
     </script>
     <script
