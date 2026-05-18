@@ -62,29 +62,39 @@
     </script>
     <script>
         window.lpTag = window.lpTag || {};
-        var accountIdParam = (new URLSearchParams(location.search)).get('accountId');
-        if (accountIdParam) {
-            fetch(`https://accdn.lpsnmedia.net/api/account/${accountIdParam}/configuration/le-connectors/all-connectors`)
-                .then(
-                    (result) => result.ok
-                        ? result.json()
-                            .then(
-                                (idps) => {
-                                    var authIdps = idps
-                                        .filter(({ type }) => type === 2);
-                                    var preferredIdps = authIdps.filter(({ configuration: { preferred } }) => preferred);
-                                    var issuer = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration.issuer;
-                                    document.getElementById('identities-issuer').value = issuer;
-                                    updateIdentities();
-                                }
-                            )
-                        : result.text(),
-                    (err) => {
-                        console.error(err);
-                    }
-                );
-            lpTag.site = accountIdParam;
-        }
+        (() => {
+            var queryParams = new URLSearchParams(location.search)
+            var subject = queryParams.get('sub');
+            if (sub) {
+                document.getElementById('identities-subject').value = sub;
+            }
+            var accountIdParam = queryParams.get('accountId');
+            if (accountIdParam) {
+                fetch(`https://accdn.lpsnmedia.net/api/account/${accountIdParam}/configuration/le-connectors/all-connectors`)
+                    .then(
+                        (result) => result.ok
+                            ? result.json()
+                                .then(
+                                    (idps) => {
+                                        var authIdps = idps
+                                            .filter(({ type }) => type === 2);
+                                        var preferredIdps = authIdps.filter(({ configuration: { preferred } }) => preferred);
+                                        var issuer = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration.issuer;
+                                        document.getElementById('identities-issuer').value = issuer;
+                                        updateIdentities();
+                                    },
+                                    (err) => {
+                                        console.error(err);
+                                    }
+                                )
+                            : result.text(),
+                        (err) => {
+                            console.error(err);
+                        }
+                    );
+                lpTag.site = accountIdParam;
+            }
+        })();
     </script>
     <script>
         window.lpTag = window.lpTag || {};
