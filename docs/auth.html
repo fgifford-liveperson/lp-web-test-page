@@ -64,10 +64,6 @@
         window.lpTag = window.lpTag || {};
         (() => {
             var queryParams = new URLSearchParams(location.search)
-            var subject = queryParams.get('sub');
-            if (subject) {
-                document.getElementById('identities-subject').value = subject;
-            }
             var accountIdParam = queryParams.get('accountId');
             if (accountIdParam) {
                 fetch(`https://accdn.lpsnmedia.net/api/account/${accountIdParam}/configuration/le-connectors/all-connectors`)
@@ -81,6 +77,10 @@
                                         var preferredIdps = authIdps.filter(({ configuration: { preferred } }) => preferred);
                                         var issuer = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration.issuer;
                                         document.getElementById('identities-issuer').value = issuer;
+                                        var subject = queryParams.get('sub');
+                                        if (subject) {
+                                           document.getElementById('identities-subject').value = subject;
+                                        }
                                         updateIdentities();
                                     },
                                     (err) => {
