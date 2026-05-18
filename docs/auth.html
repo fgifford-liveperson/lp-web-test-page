@@ -50,7 +50,8 @@
     </script>
     <script>
         function updateIdpParams() {
-            window.lpGetAuthenticationToken = function (callback) {
+            // window.lpGetAuthenticationToken = function (callback) {
+            (window.lpTag.jsContext || window)[window.lpTag.jsMethodName||'lpGetAuthenticationToken'] = function (callback) {
                 return callback(
                     {
                         redirect_uri: document.getElementById('idp-redirect-uri').value,
@@ -75,7 +76,10 @@
                                         var authIdps = idps
                                             .filter(({ type }) => type === 2);
                                         var preferredIdps = authIdps.filter(({ configuration: { preferred } }) => preferred);
-                                        var issuer = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration.issuer;
+                                        var { issuer, jsContext = window, jsMethodName = 'lpGetAuthenticationToken' } = ((preferredIdps.length > 0) ? preferredIdps[0] : authIdps[0]).configuration;
+                                        lpTag.jsContext = jsContext;
+                                        lpTag.jsMethodName = jsMethodName;
+                                        jsContext[jsMethodName] = function (callback) { return callback(null, new Error('Not implemented')); };
                                         document.getElementById('identities-issuer').value = issuer;
                                         var subject = queryParams.get('sub');
                                         if (subject) {
@@ -114,7 +118,7 @@
 <body>
     <div class="p-5 mb-4 bg-light rounded-3 text-center">
         <img class="w-25 p-3"
-            src="https://support.liveperson.com/wp-content/uploads/2018/03/liveperson-logo-30cm_logo-orange.png"
+            src="logo-light-new-png.png"
             alt="LivePerson">
         <h2>Authenticated page</h2>
         <p>Press the button to return to the unauthenticated engagement</p>
